@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingchen.dao.NoteMapper">
+    <sql id="notePojo">
+        select a.note_id,
+               a.user_id,
+               b.user_name,
+               b.user_headshot_url,
+               a.note_content,
+               a.note_time
+        from note as a inner join user as b on a.user_id=b.user_id
+    </sql>
+    <select id="viewNoteSelf" resultType="com.xingchen.pojo.Note">
+        <include refid="notePojo"/> where a.user_id = #{user_id}
+    </select>
+    <select id="getNote" resultType="com.xingchen.pojo.Note">
+        <include refid="notePojo"/> where a.note_id = #{note_id}
+    </select>
+</mapper>

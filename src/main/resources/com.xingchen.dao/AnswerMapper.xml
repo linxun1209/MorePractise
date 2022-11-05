@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingchen.dao.AnswerMapper">
+    <sql id="answerPojo">
+        select
+            a.topic_id,
+            a.answer_id,
+            a.answer_content,
+            a.answer_time,
+            a.answer_result,
+            b.topic_difficulty,
+            b.topic_time,
+            b.topic_collections,
+            b.topic_search,
+            b.topic_name,
+            b.topic_vip,
+            b.topic_type,
+            c.user_name,
+            c.user_headshot_url
+        from topic as b
+        inner join answer as a on a.topic_id=b.topic_id
+        right join user as c on a.answer_uid=c.user_id
+    </sql>
+
+    <select id="viewAnswerSelf" resultType="com.xingchen.pojo.Answer">
+        <include refid="answerPojo"></include> where a.topic_id=#{topic_id} and a.answer_uid=#{answer_uid}
+    </select>
+
+
+    <select id="viewTopicAnswer" resultType="com.xingchen.pojo.Answer">
+        <include refid="answerPojo"></include> where a.topic_id=#{topic_id}
+    </select>
+
+
+
+
+
+
+</mapper>

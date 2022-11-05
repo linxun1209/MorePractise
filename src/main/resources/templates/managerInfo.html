@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消息中心</title>
+    <link rel="stylesheet" href="../public/fonts/yxy/iconfont.css">
+    <link rel="stylesheet" href="../public/css/yxy/managerInfo.css">
+</head>
+<body>
+    <!-- 弹窗 -->
+    <div id="simpleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tip</h2>
+            </div>
+            <div class="modal-body">
+                <p class="winText">这是一个弹窗效果</p>
+            </div>
+            <div class="modal-footer">
+                <h3>2秒后自动消失</h3>
+            </div>
+        </div>
+    </div>
+    <div id="simpleModal_sure" class="modal_sure">
+        <div class="modal-content-sure">
+            <div class="modal-header-sure">
+                <h2>Tip</h2>
+            </div>
+            <div class="modal-body-sure">
+                <p class="winText_sure">这是一个弹窗效果</p>
+            </div>
+            <div class="modal-footer-sure">
+                <span class="yes">确定</span>
+                <span class="no">取消</span>
+            </div>
+        </div>
+    </div>
+    <div class="nav">
+        <div class="navBox">
+            <div class="winBtns">
+                <span class="iconfont" id="lastWin" onclick="window.history.go(-1)">&#xe64e;</span>
+                <span class="iconfont" id="newWin" onclick="window.location.reload()">&#xe85e;</span>
+            </div>
+            <h2>消息中心</h2>
+        </div>
+    </div>
+    <div class="content">
+        <div class="sidebar">
+            <h2>T部落</h2>
+            <ul>
+                <li>通知</li>
+                <li>点赞</li>
+                <li>收藏</li>
+                <li>关注</li>
+            </ul>
+        </div>
+        <div class="contentBox">
+            <div class="handle">
+                <div class="userInfo">
+                    <span class="userHead"></span>
+                    <span class="userName">浪漫邮递员</span>
+                </div>
+                <div class="search">
+                    <input placeholder="请输入关键词" class="searchText" />
+                    <button class="searchBtn">GO</button>
+                </div>
+                <div class="btns">
+                    <button class="reset">重置</button>
+                    <button class="checkAll">全选</button>
+                    <button class="deleteCheck">删除已选</button>
+                    <button class="haveRead">一键已读</button>
+                </div>
+            </div>
+            <div class="mainContent">
+                <ul class="infoBox">
+                    <li>
+                        <input type="checkbox" class="checkHandle"/>
+                        <span class="sn">1</span>
+                        <div class="readContent">
+                            <div class="infoText"><span style="color: rgb(39, 142, 220);">哇偶</span>
+                                <span>收藏了</span>
+                                <span style="color: rgb(39, 142, 220);">《前端》</span>
+                            </div>
+                            <span class="time">2022/07/01 13:00</span>
+                        </div>
+                        <span class="notReadDot"></span>
+                        <div class="infoBtns">
+                            <button class="deleteInfo">删除</button>
+                            <button class="readInfo">一键已读</button>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkHandle"/>
+                        <span class="sn">2</span>
+                        <div class="readContent">
+                            <div class="infoText"><span style="color: rgb(39, 142, 220);">哇偶</span>
+                                <span>收藏了</span>
+                                <span style="color: rgb(39, 142, 220);">《前端》</span>
+                            </div>
+                            <span class="time">2022/07/01 13:00</span>
+                        </div>
+                        <span class="notReadDot"></span>
+                        <div class="infoBtns">
+                            <button class="deleteInfo">删除</button>
+                            <button class="readInfo">一键已读</button>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkHandle"/>
+                        <span class="sn">3</span>
+                        <div class="readContent">
+                            <div class="infoText"><span style="color: rgb(39, 142, 220);">哇偶</span>
+                                <span>收藏了</span>
+                                <span style="color: rgb(39, 142, 220);">《前端》</span>
+                            </div>
+                            <span class="time">2022/07/01 13:00</span>
+                        </div>
+                        <span class="notReadDot"></span>
+                        <div class="infoBtns">
+                            <button class="deleteInfo">删除</button>
+                            <button class="readInfo">一键已读</button>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkHandle"/>
+                        <span class="sn">4</span>
+                        <div class="readContent">
+                            <div class="infoText"><span style="color: rgb(39, 142, 220);">哇偶</span>
+                                <span>收藏了</span>
+                                <span style="color: rgb(39, 142, 220);">《前端》</span>
+                            </div>
+                            <span class="time">2022/07/01 13:00</span>
+                        </div>
+                        <span class="notReadDot"></span>
+                        <div class="infoBtns">
+                            <button class="deleteInfo">删除</button>
+                            <button class="readInfo">一键已读</button>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkHandle"/>
+                        <span class="sn">5</span>
+                        <div class="readContent">
+                            <div class="infoText"><span style="color: rgb(39, 142, 220);">哇偶</span>
+                                <span>收藏了</span>
+                                <span style="color: rgb(39, 142, 220);">《前端》</span>
+                            </div>
+                            <span class="time">2022/07/01 13:00</span>
+                        </div>
+                        <span class="notReadDot"></span>
+                        <div class="infoBtns">
+                            <button class="deleteInfo">删除</button>
+                            <button class="readInfo">一键已读</button>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="checkbox" class="checkHandle"/>
+                        <span class="sn">6</span>
+                        <div class="readContent">
+                            <div class="infoText"><span style="color: rgb(39, 142, 220);">哇偶</span>
+                                <span>收藏了</span>
+                                <span style="color: rgb(39, 142, 220);">《前端》</span>
+                            </div>
+                            <span class="time">2022/07/01 13:00</span>
+                        </div>
+                        <span class="notReadDot"></span>
+                        <div class="infoBtns">
+                            <button class="deleteInfo">删除</button>
+                            <button class="readInfo">一键已读</button>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pageHandle">
+                    <span class="nums">共6条数据</span>
+                    <div class="page">
+                        <span class="lastPage"><sapn class="iconfont">&#xe63b;</sapn></span>
+                        <span class="currentPage">1</span>
+                        <span class="line">/</span>
+                        <span class="allPages">1</span>
+                        <span class="nextPage"><sapn class="iconfont">&#xe639;</sapn></span>
+                    </div>
+                    <div class="searchPage">
+                        <input placeholder="请输入页数" class="inputPage" type="number"/>
+                        <button class="searchPageBtn">GO</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <script type="text/javascript" src="../public/js/yxy/info.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingchen.dao.ConclusionMapper">
+    <sql id="conclusionPojo">
+        select a.conclusion_id,
+               a.user_id,
+               b.user_name,
+               b.user_headshot_url,
+               a.conclusion_content,
+               a.conclusion_statue,
+               a.conclusion_vip,
+               a.conclusion_title,
+               a.conclusion_time
+        from conclusion as a inner join user as b on a.user_id=b.user_id
+    </sql>
+    <select id="viewConclusionSelf" resultType="com.xingchen.pojo.Conclusion">
+        <include refid="conclusionPojo"/> where a.user_id = #{user_id}
+    </select>
+
+</mapper>
+
+

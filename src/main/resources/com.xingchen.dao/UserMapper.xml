@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingchen.dao.UserMapper">
+<!--  增加用户经验值:Integer addNum( Integer userId, Integer num);  -->
+    <update id="addNum" >
+        update user set user_experience = user_experience + #{num} where user_id = #{userId}
+    </update>
+</mapper>

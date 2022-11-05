@@ -1,0 +1,62 @@
+server:
+  port: 8080
+
+  servlet:
+    context-path: /xingchen
+  tomcat:
+    #    最大连接数
+    max-connections: 1000
+    #    最大线程数
+    max-threads: 300
+
+spring:
+  datasource:
+    druid:
+    url: jdbc:mysql://110.40.211.224:3306/question?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 419520
+  redis:
+    host: 110.40.211.224
+    port: 6379
+    password: 419520
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  resources:
+    static-locations: classpath:atic/,classpath:/templates/
+
+mybatis-plus:
+#  mapper-locations: classpath*:/mapper/**/*.xml
+  mapper-locations: classpath:com.xingchen.dao/*.xml
+  global-config:
+    db-config:
+      table-underline: false
+      id-type: auto
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  jackson:
+    #指定日期格式，比如yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss
+    #指定日期格式化时区
+    time-zone: GMT+8
+
+
+jwt:
+  route:
+    authentication:
+      path: /login
+#  header: Authorization
+  header: token
+  expiration: 604800
+  secret: Authorization

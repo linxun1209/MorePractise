@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingchen.dao.PostMapper">
+    <sql id="postPojo">
+        select a.post_id,
+               a.user_id,
+               b.user_name,
+               b.user_headshot_url,
+               a.post_title,
+               a.post_content,
+               a.post_picture,
+               a.post_type,
+               a.post_label,
+               a.post_vip,
+               a.post_time,
+               a.post_state,
+               a.post_view
+        from post as a inner join user as b on a.user_id = b.user_id
+    </sql>
+
+<!--  查看单个帖子详细信息：Post viewOne(Integer postId);  -->
+    <select id="viewOne" resultType="com.xingchen.pojo.Post">
+        <include refid="postPojo"/> where a.post_id = #{postId}
+    </select>
+
+<!--  更新浏览量:Integer updateView(Integer postId,Integer view);  -->
+    <select id="updateView">
+        update post set post_view = post_view + #{view} where post_id = #{postId}
+    </select>
+
+<!--  根据帖子id查找帖子:List<Post> viewById(@Param("postId") List<Integer> postId);  -->
+    <select id="viewById" resultType="com.xingchen.pojo.Post" parameterType="java.lang.Integer">
+        <include refid="postPojo"/> where a.post_id in
+        <foreach collection="postId" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+<!--  用户查看自己的帖子:List<Post> viewSelf(Integer userId,Integer state,String begin,String end,String search);  -->
+    <select id="viewSelf" resultType="com.xingchen.pojo.Post">
+        <include refid="postPojo"/>
+        <where>
+             a.user_id = #{userId}
+             <if test="state!=null">
+                 and a.post_state = #{state}
+             </if>
+             <if test="begin!=null and end!=null">
+                 and a.post_time between #{begin} and #{end}
+             </if>
+             <if test="search!=null">
+                 and concat(a.post_title,a.post_content,a.post_label) like '%${search}%'
+             </if>
+        </where>
+        order by a.post_time desc
+    </select>
+
+<!--   查看发布成功的帖子:List<Post> viewPublish(Integer begin,Integer num);  -->
+    <select id="viewPublish" resultType="com.xingchen.pojo.Post">
+        <include refid="postPojo"/> where a.post_state = '3'
+        order by a.post_time desc
+        <if test="begin!=null and num!=null">
+            limit #{begin},#{num}
+        </if>
+    </select>
+
+<!--   分页查看帖子:List<Post> page(String search,Integer begin, Integer num,Integer state);  -->
+    <select id="page" resultType="com.xingchen.pojo.Post">
+        <include refid="postPojo"/>
+        <where>
+            a.post_state != '0'
+            <if test="search !=null">
+                and concat(a.post_title,a.post_content,a.post_label) like '%${search}%'
+            </if>
+            <if test="state !=null and state!=2">
+                and a.post_state = #{state}
+            </if>
+            <if test="state !=null and state==2">
+                and a.post_state >= '2'
+            </if>
+        </where>
+        order by a.post_time desc
+        <if test="begin!=null and num!=null">
+            limit #{begin},#{num}
+        </if>
+    </select>
+
+</mapper>

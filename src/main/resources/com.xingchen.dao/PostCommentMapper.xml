@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingchen.dao.PostCommentMapper">
+
+    <resultMap id="postCommentPojo" type="com.xingchen.pojo.PostComment">
+        <id property="postCommentId" column="post_comment_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userHeadshotUrl" column="user_headshot_url"/>
+        <result property="objectId" column="object_id"/>
+        <result property="commentContent" column="comment_content"/>
+        <result property="commentTime" column="comment_time"/>
+        <collection property="childrenComment" ofType="com.xingchen.pojo.PostComment">
+            <id property="postCommentId" column="children_id"/>
+            <result property="userId" column="children_user_id"/>
+            <result property="userName" column="children_user_name"/>
+            <result property="userHeadshotUrl" column="children_user_headshot"/>
+            <result property="objectId" column="children_object_id"/>
+            <result property="objectName" column="children_user_name"/>
+            <result property="commentContent" column="children_comment_content"/>
+            <result property="commentTime" column="children_comment_time"/>
+        </collection>
+    </resultMap>
+
+<!--  查看某帖子的所有评论:List<PostComment> viewComment(Integer postId);  -->
+    <select id="viewComment" resultMap="postCommentPojo" parameterType="java.lang.Integer">
+        select a.post_comment_id,
+               a.user_id,
+               b.user_name,
+               b.user_headshot_url,
+               a.object_id,
+               a.comment_content,
+               a.comment_time,
+               c.post_comment_id as children_id,
+               c.user_id as children_user_id,
+               d.user_name as children_user_name,
+               d.user_headshot_url as children_user_headshot,
+               c.object_id as children_object_id,
+               d.user_name as children_user_name,
+               c.comment_content as children_comment_content,
+               c.comment_time as children_comment_time
+        from post_comment as a
+        inner join user as b on a.user_id = b.user_id
+        left join post_comment as c on a.post_comment_id = c.object_id and c.comment_state = '1'
+--         left join post_comment as c on a.post_comment_id = c.comment_father and c.comment_state = '1'
+        left join user as d on c.user_id = d.user_id
+            where a.object_id = #{postId} and a.comment_state = '0'
+            order by a.comment_time, c.comment_time
+    </select>
+
+<!--   删除一个帖子的所有评论:Integer postDelete(Integer postId);  -->
+    <delete id="postDelete">
+        delete b,c from post_comment as a
+        left join post_comment as b on a.post_id = b.object_id
+            where a.object_id = #{postId} and a.comment_state = '0'
+    </delete>
+<!--   删除一个用户的帖子的所有评论:Integer userPostDelete(Integer userId);  -->
+    <delete id="userPostDelete">
+        delete c,d from user as a
+            left join post as b on a.user_id = b.user_id
+            left join post_comment as c on b.post_id = c.object_id and c.comment_state = '0'
+            left join post_comment as d on c.post_comment_id = d.object_id and d.comment_state = '1'
+        where a.user_id = #{userId}
+    </delete>
+<!--   删除一个用户的所有评论:Integer userDelete(Integer userId);  -->
+    <delete id="userDelete">
+        delete post_comment from post_comment where user_id = #{userId}
+    </delete>
+
+
+
+</mapper>
